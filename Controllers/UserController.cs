@@ -15,7 +15,7 @@ namespace Crud_Web_Api.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpPost]
+        [HttpPost("createUser/{user}")]
         public async Task<ActionResult<UserModel>> AddUser([FromBody] UserModel user)
         {
             if (user == null)
@@ -29,7 +29,7 @@ namespace Crud_Web_Api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("getUser/{id}")]
         public async Task<ActionResult<UserModel>> GetUser(int id)
         {
             UserModel user = await _userRepository.GetUserById(id);
@@ -38,31 +38,31 @@ namespace Crud_Web_Api.Controllers
             {
                 return NotFound("Usuário não encontrado!");
             }
-            else 
+            else
             {
                 return Ok(user);
             }
         }
 
-        [HttpPut]
+        [HttpPut("updateUser/{user}")]
         public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserModel user)
         {
             if (user == null)
             {
                 return BadRequest("O usuário não pode ser vazio!");
             }
-            else 
+            else
             {
                 await _userRepository.UpdateUser(user);
                 return Ok(user);
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("deleteUser/{id}")]
         public async Task<ActionResult<UserModel>> DeleteUser(int id)
         {
             UserModel response = await _userRepository.DeleteUser(id);
-            
+
             if (response == null)
             {
                 return NotFound("Usuário não encontrado!");
@@ -71,6 +71,13 @@ namespace Crud_Web_Api.Controllers
             {
                 return Ok(response);
             }
+        }
+
+        [HttpGet("getUsers/")]
+        public async Task<ActionResult<UserModel>> GetUsers()
+        {
+           List<UserModel> users = await _userRepository.GetAllUsers();
+           return Ok(users);
         }
     }
 }

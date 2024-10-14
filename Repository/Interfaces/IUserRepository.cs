@@ -8,5 +8,6 @@ namespace Crud_Web_Api.Repository.Interfaces
         Task<UserModel> GetUserById(int id);
         Task<UserModel> UpdateUser(UserModel user);
         Task<UserModel> DeleteUser(int id);
+        Task<List<UserModel>> GetAllUsers();
     }
 }

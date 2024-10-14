@@ -54,5 +54,11 @@ namespace Crud_Web_Api.Repository.Repositorys
                 return user;
             }
         }
+
+        public async Task<List<UserModel>> GetAllUsers()
+        {
+            List<UserModel> users = await _myContextdb.Users.ToListAsync();
+            return users;
+        }
     }
 }
